@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vote.Me</title>
+</head>
+<body>
+<main>
+    <form name="vote_page" method="get" action="votes">
+        <fieldset>
+            <legend>Choose you favourite artist:</legend>
+            <div>
+                <label>
+                    <input type="radio" name="artistName" value="RIHANNA"/>
+                    RIHANNA
+                </label>
+                <label>
+                    <input type="radio" name="artistName" value="ARTIST_2"/>
+                    ARTIST_2
+                </label>
+                <label>
+                    <input type="radio" name="artistName" value="ARTIST_3"/>
+                    ARTIST_3
+                </label>
+                <label>
+                    <input type="radio" name="artistName" value="ARTIST_4"/>
+                    ARTIST_4
+                </label>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Choose you favourite genre:</legend>
+            <div>
+                <label for="genre_1">GENRE_1</label>
+                <input id="genre_1" name="genre" value="GENRE_1" type="checkbox"/>
+            </div>
+            <div>
+                <label for="genre_2">GENRE_2</label>
+                <input id="genre_2" name="genre" value="GENRE_2" type="checkbox"/>
+            </div>
+            <div>
+                <label for="genre_3">GENRE_3</label>
+                <input id="genre_3" name="genre" value="GENRE_2" type="checkbox"/>
+            </div>
+            <div>
+                <label for="genre_4">GENRE_4</label>
+                <input id="genre_4" name="genre" value="GENRE_4" type="checkbox"/>
+            </div>
+            <div>
+                <label for="genre_5">GENRE_5</label>
+                <input id="genre_5" name="genre" value="GENRE_5" type="checkbox"/>
+            </div>
+            <div>
+                <label for="genre_6">GENRE_6</label>
+                <input id="genre_6" name="genre" value="GENRE_6" type="checkbox"/>
+            </div>
+            <div>
+                <label for="genre_7">GENRE_7</label>
+                <input id="genre_7" name="genre" value="GENRE_7" type="checkbox"/>
+            </div>
+            <div>
+                <label for="genre_8">GENRE_8</label>
+                <input id="genre_8" name="genre" value="GENRE_8" type="checkbox"/>
+            </div>
+            <div>
+                <label for="genre_9">GENRE_9</label>
+                <input id="genre_9" name="genre" value="GENRE_9" type="checkbox"/>
+            </div>
+            <div>
+                <label for="genre_10">GENRE_10</label>
+                <input id="genre_10" name="genre" value="GENRE_10" type="checkbox"/>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Leave some notes about you:</legend>
+            <div>
+                <label for="about_me">Comment:</label>
+                <input id="about_me" name="comment" type="text" placeholder="Please leave a comment here" required/>
+            </div>
+        </fieldset>
+        <input type="submit" value="Submit">
+    </form>
+</main>
+</body>
+</html>
