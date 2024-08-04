@@ -1,12 +1,10 @@
 package by.it_academy.jd2.golubev_107.voting_service.controller;
 
 import by.it_academy.jd2.golubev_107.voting_service.repository.entity.Comment;
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.EArtist;
 import by.it_academy.jd2.golubev_107.voting_service.service.IVoteService;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VoteInptDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VotesResult;
 import by.it_academy.jd2.golubev_107.voting_service.service.impl.VoteServiceImpl;
-import by.it_academy.jd2.golubev_107.voting_service.util.Util;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -41,9 +39,16 @@ public class VotingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setEncodingContentType(req, resp);
-        VotesResult result = voteService.calculate(toVoteInputDto(req));
-        PrintWriter writer = resp.getWriter();
-        printResult(writer, result);
+        try (PrintWriter writer = resp.getWriter()) {
+            try {
+                VotesResult result = voteService.calculate(toVoteInputDto(req));
+                printResult(writer, result);
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+                printError(writer, e.getMessage());
+            }
+        } catch (Exception e) {
+        }
     }
 
     @Override
@@ -53,11 +58,9 @@ public class VotingServlet extends HttpServlet {
 
     private VoteInptDto toVoteInputDto(HttpServletRequest req) {
         VoteInptDto inputDto = new VoteInptDto();
-        EArtist artist = EArtist.valueOf(req.getParameter(ARTIST_PARAM));
-        String[] genresArr = req.getParameterValues(GENRE_PARAM);
+        inputDto.setArtistName(req.getParameter(ARTIST_PARAM));
+        inputDto.setGenres(req.getParameterValues(GENRE_PARAM));
         Comment comment = new Comment(req.getParameter(COMMENT_PARAM), LocalDateTime.now());
-        inputDto.setArtistName(artist);
-        inputDto.setGenres(Util.toEGenresList(genresArr));
         inputDto.setComment(comment);
         return inputDto;
     }
@@ -75,7 +78,12 @@ public class VotingServlet extends HttpServlet {
         printResults.add(commentToPrint);
 
         printResults.forEach(writer::println);
-        writer.println("<a href=\"./votingPage.html\">Back to votes</a>");
+        writer.println("<a href=\"./votingPage.html\">Back to voting</a>");
+    }
+
+    private void printError(PrintWriter writer, String errorMessages) {
+        writer.println(errorMessages.replace("\n", "<br>"));
+        writer.println("<br><a href=\"./votingPage.html\">Back to voting</a>");
     }
 
     private void setEncodingContentType(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
@@ -97,7 +105,7 @@ public class VotingServlet extends HttpServlet {
         out.append("The comments received: \n");
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy  HH:mm");
         for (Comment comment : comments) {
-            out.append(String.format("<p> %s : %s </p>\n", dateFormat.format(comment.getDateVoted()), comment.getComment()));
+            out.append(String.format("<p> %s : %s </p>\n", dateFormat.format(comment.getDateVoted()), comment.getTextComment()));
         }
         return out.toString();
     }

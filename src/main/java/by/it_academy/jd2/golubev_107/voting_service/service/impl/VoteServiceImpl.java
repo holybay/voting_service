@@ -7,8 +7,10 @@ import by.it_academy.jd2.golubev_107.voting_service.repository.entity.Vote;
 import by.it_academy.jd2.golubev_107.voting_service.service.IVoteService;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VoteInptDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VotesResult;
+import by.it_academy.jd2.golubev_107.voting_service.util.Util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +45,7 @@ public class VoteServiceImpl implements IVoteService {
 
     @Override
     public VotesResult calculate(VoteInptDto inDto) {
-        validate();
+        validate(inDto);
         Vote voteToSave = toVote(inDto);
         saveToStorages(voteToSave);
 
@@ -60,8 +62,8 @@ public class VoteServiceImpl implements IVoteService {
 
     private Vote toVote(VoteInptDto inDto) {
         Vote toSave = new Vote();
-        toSave.setArtistName(inDto.getArtistName());
-        toSave.setGenres(inDto.getGenres());
+        toSave.setArtistName(EArtist.valueOf(inDto.getArtistName()));
+        toSave.setGenres(Util.toEGenresList(inDto.getGenres()));
         toSave.setComment(inDto.getComment());
         return toSave;
     }
@@ -123,7 +125,39 @@ public class VoteServiceImpl implements IVoteService {
         return calculated;
     }
 
-    private void validate() {
+    private void validate(VoteInptDto inDto) {
+        List<String> errors = new ArrayList<>();
+        enumCheck(EArtist.class, inDto.getArtistName(), errors, "ARTIST");
 
+        int genresCounter = 0;
+        for (String genre : inDto.getGenres()) {
+            enumCheck(EGenre.class, genre, errors, "GENRE");
+            genresCounter++;
+        }
+        if (genresCounter < 3) {
+            errors.add("You've chosen less than 3 genres: " + Arrays.toString(inDto.getGenres()));
+        }
+
+        if (inDto.getComment().getTextComment() == null
+                || inDto.getComment().getDateVoted() == null) {
+            errors.add("Incorrect comment: " + inDto.getComment());
+        }
+
+        if (!errors.isEmpty()) {
+            throw new RuntimeException(String.join("\n", errors));
+        }
+    }
+
+    private <T extends Enum<T>> void enumCheck(Class<T> enumClazz,
+                                               String value, List<String> errors, String message) {
+        if (value == null) {
+            errors.add(String.format("%s can't be blank: %s", message, value));
+            return;
+        }
+        try {
+            Enum.valueOf(enumClazz, value);
+        } catch (IllegalArgumentException e) {
+            errors.add(String.format("Wrong %s name: : %s", message, value));
+        }
     }
 }

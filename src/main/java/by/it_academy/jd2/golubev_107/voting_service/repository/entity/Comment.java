@@ -13,7 +13,7 @@ public class Comment {
         this.dateVoted = dateVoted;
     }
 
-    public String getComment() {
+    public String getTextComment() {
         return comment;
     }
 
