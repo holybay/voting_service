@@ -93,7 +93,7 @@ public class VotingServlet extends HttpServlet {
 
     private <T> String printCalculatedVotes(Map<T, Integer> results) {
         StringBuilder out = new StringBuilder();
-        out.append("Vote results: \n");
+        out.append("<h1>Vote results: </h1>\n");
         for (Map.Entry<T, Integer> result : results.entrySet()) {
             out.append(String.format("<p> %s : %d </p>\n", result.getKey(), result.getValue()));
         }
@@ -102,7 +102,7 @@ public class VotingServlet extends HttpServlet {
 
     private String printComments(List<Comment> comments) {
         StringBuilder out = new StringBuilder();
-        out.append("The comments received: \n");
+        out.append("<h3>The comments received: </h3>\n");
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy  HH:mm");
         for (Comment comment : comments) {
             out.append(String.format("<p> %s : %s </p>\n", dateFormat.format(comment.getDateVoted()), comment.getTextComment()));
