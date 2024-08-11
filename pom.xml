@@ -6,7 +6,7 @@
 
     <groupId>by.it_academy.jd2.golubev_107</groupId>
     <artifactId>voting_service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <properties>
@@ -46,6 +46,7 @@
                 <version>${tomcat7-maven-plugin.version}</version>
             </plugin>
         </plugins>
+        <finalName>${artifactId}##${version}</finalName>
     </build>
 
 </project>
