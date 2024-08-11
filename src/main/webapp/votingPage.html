@@ -6,69 +6,29 @@
 </head>
 <body>
 <main>
-    <form name="vote_page" method="get" action="votes">
+    <form name="vote_page" method="post" action="votes">
         <fieldset>
             <legend>Choose you favourite artist:</legend>
             <div>
-                <label>
-                    <input type="radio" name="artistName" value="RIHANNA"/>
-                    RIHANNA
-                </label>
-                <label>
-                    <input type="radio" name="artistName" value="ARTIST_2"/>
-                    ARTIST_2
-                </label>
-                <label>
-                    <input type="radio" name="artistName" value="ARTIST_3"/>
-                    ARTIST_3
-                </label>
-                <label>
-                    <input type="radio" name="artistName" value="ARTIST_4"/>
-                    ARTIST_4
-                </label>
+                <label><input type="radio" name="artistName" value="RIHANNA" required/>RIHANNA</label>
+                <label><input type="radio" name="artistName" value="DAFT_PUNK"/>DAFT_PUNK</label>
+                <label><input type="radio" name="artistName" value="AC_DC"/>AC_DC</label>
+                <label><input type="radio" name="artistName" value="JIMMY_SAX"/>JIMMY_SAX</label>
             </div>
         </fieldset>
         <fieldset>
-            <legend>Choose you favourite genre:</legend>
+            <legend>Choose 3-5 your favourite genres:</legend>
             <div>
-                <label for="genre_1">GENRE_1</label>
-                <input id="genre_1" name="genre" value="GENRE_1" type="checkbox"/>
-            </div>
-            <div>
-                <label for="genre_2">GENRE_2</label>
-                <input id="genre_2" name="genre" value="GENRE_2" type="checkbox"/>
-            </div>
-            <div>
-                <label for="genre_3">GENRE_3</label>
-                <input id="genre_3" name="genre" value="GENRE_2" type="checkbox"/>
-            </div>
-            <div>
-                <label for="genre_4">GENRE_4</label>
-                <input id="genre_4" name="genre" value="GENRE_4" type="checkbox"/>
-            </div>
-            <div>
-                <label for="genre_5">GENRE_5</label>
-                <input id="genre_5" name="genre" value="GENRE_5" type="checkbox"/>
-            </div>
-            <div>
-                <label for="genre_6">GENRE_6</label>
-                <input id="genre_6" name="genre" value="GENRE_6" type="checkbox"/>
-            </div>
-            <div>
-                <label for="genre_7">GENRE_7</label>
-                <input id="genre_7" name="genre" value="GENRE_7" type="checkbox"/>
-            </div>
-            <div>
-                <label for="genre_8">GENRE_8</label>
-                <input id="genre_8" name="genre" value="GENRE_8" type="checkbox"/>
-            </div>
-            <div>
-                <label for="genre_9">GENRE_9</label>
-                <input id="genre_9" name="genre" value="GENRE_9" type="checkbox"/>
-            </div>
-            <div>
-                <label for="genre_10">GENRE_10</label>
-                <input id="genre_10" name="genre" value="GENRE_10" type="checkbox"/>
+                <label><input name="genre" value="ROCK" type="checkbox"/>ROCK</label><br>
+                <label><input name="genre" value="POP" type="checkbox"/>POP</label><br>
+                <label><input name="genre" value="DANCE" type="checkbox"/>DANCE</label><br>
+                <label><input name="genre" value="ELECTRO" type="checkbox"/>ELECTRO</label><br>
+                <label><input name="genre" value="JAZZ" type="checkbox"/>JAZZ</label><br>
+                <label><input name="genre" value="INSTRUMENTAL" type="checkbox"/>INSTRUMENTAL</label><br>
+                <label><input name="genre" value="RAP" type="checkbox"/>RAP</label><br>
+                <label><input name="genre" value="FOLK" type="checkbox"/>FOLK</label><br>
+                <label><input name="genre" value="COUNTRY" type="checkbox"/>COUNTRY</label><br>
+                <label><input name="genre" value="DISCO" type="checkbox"/>DISCO</label><br>
             </div>
         </fieldset>
         <fieldset>
