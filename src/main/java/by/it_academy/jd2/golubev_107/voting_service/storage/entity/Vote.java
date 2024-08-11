@@ -1,4 +1,4 @@
-package by.it_academy.jd2.golubev_107.voting_service.repository.entity;
+package by.it_academy.jd2.golubev_107.voting_service.storage.entity;
 
 import java.util.List;
 import java.util.Objects;

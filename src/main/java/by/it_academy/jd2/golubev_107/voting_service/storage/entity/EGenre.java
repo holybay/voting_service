@@ -1,4 +1,4 @@
-package by.it_academy.jd2.golubev_107.voting_service.repository.entity;
+package by.it_academy.jd2.golubev_107.voting_service.storage.entity;
 
 public enum EGenre {
 
