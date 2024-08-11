@@ -1,9 +1,9 @@
 package by.it_academy.jd2.golubev_107.voting_service.service.impl;
 
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.Comment;
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.EArtist;
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.EGenre;
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.Vote;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EArtist;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EGenre;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Vote;
 import by.it_academy.jd2.golubev_107.voting_service.service.IVoteService;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VoteInptDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VotesResult;

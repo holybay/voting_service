@@ -1,8 +1,8 @@
 package by.it_academy.jd2.golubev_107.voting_service.service.dto;
 
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.Comment;
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.EArtist;
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.EGenre;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EArtist;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EGenre;
 
 import java.util.List;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package by.it_academy.jd2.golubev_107.voting_service.service.dto;
 
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.Comment;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
 
 import java.util.Arrays;
 import java.util.Objects;
