@@ -18,6 +18,8 @@
         <maven.tomcat.path>/${project.build.finalName}</maven.tomcat.path>
         <!--versions libraries-->
         <tomcat-servlet-api.version>10.1.26</tomcat-servlet-api.version>
+        <jakarta.jstl-api.version>3.0.0</jakarta.jstl-api.version>
+        <jakarta.jstl.version>3.0.1</jakarta.jstl.version>
         <!--versions plugins-->
         <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
         <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
@@ -29,6 +31,17 @@
             <artifactId>tomcat-servlet-api</artifactId>
             <version>${tomcat-servlet-api.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>${jakarta.jstl-api.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.glassfish.web/jakarta.servlet.jsp.jstl -->
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+            <version>${jakarta.jstl.version}</version>
         </dependency>
     </dependencies>
 
