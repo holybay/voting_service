@@ -1,6 +1,6 @@
 package by.it_academy.jd2.golubev_107.voting_service.util;
 
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.EGenre;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EGenre;
 
 import java.util.ArrayList;
 import java.util.List;

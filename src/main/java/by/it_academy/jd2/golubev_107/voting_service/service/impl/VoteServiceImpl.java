@@ -1,12 +1,14 @@
 package by.it_academy.jd2.golubev_107.voting_service.service.impl;
 
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.Comment;
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.EArtist;
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.EGenre;
-import by.it_academy.jd2.golubev_107.voting_service.repository.entity.Vote;
 import by.it_academy.jd2.golubev_107.voting_service.service.IVoteService;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VoteInptDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VotesResult;
+import by.it_academy.jd2.golubev_107.voting_service.storage.IVoteStorage;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EArtist;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EGenre;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Vote;
+import by.it_academy.jd2.golubev_107.voting_service.storage.impl.VoteStorageImpl;
 import by.it_academy.jd2.golubev_107.voting_service.util.Util;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.TreeMap;
 
 public class VoteServiceImpl implements IVoteService {
 
+    private static final IVoteStorage voteStorage = VoteStorageImpl.getInstance();
     private static final IVoteService instance = new VoteServiceImpl();
     private final List<Vote> allVotes = new ArrayList<>();
     private final Map<EArtist, List<Vote>> artists = new HashMap<>();
@@ -35,23 +38,18 @@ public class VoteServiceImpl implements IVoteService {
 
     @Override
     public void init() {
-        for (EArtist artist : EArtist.values()) {
-            artists.put(artist, new ArrayList<>(EArtist.values().length));
-        }
-        for (EGenre genre : EGenre.values()) {
-            genres.put(genre, new ArrayList<>(EGenre.values().length));
-        }
+        voteStorage.init();
     }
 
     @Override
     public VotesResult calculate(VoteInptDto inDto) {
         validate(inDto);
         Vote voteToSave = toVote(inDto);
-        saveToStorages(voteToSave);
+        voteStorage.save(voteToSave);
 
-        Map<EArtist, Integer> calculatedArtists = calculateArtists(artists);
-        Map<EGenre, Integer> calculatedGenres = calculateGenres(genres);
-        List<Comment> commentResults = new ArrayList<>(comments);
+        Map<EArtist, Integer> calculatedArtists = calculateArtists(voteStorage.getArtists());
+        Map<EGenre, Integer> calculatedGenres = calculateGenres(voteStorage.getGenres());
+        List<Comment> commentResults = new ArrayList<>(voteStorage.getComments());
 
         Map<EArtist, Integer> sortedCalcArtists = sortArtistsByVotes(calculatedArtists);
         Map<EGenre, Integer> sortedCalcGenres = sortGenresByVotes(calculatedGenres);
