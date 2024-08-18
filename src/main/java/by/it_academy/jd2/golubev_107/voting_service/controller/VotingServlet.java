@@ -5,6 +5,8 @@ import by.it_academy.jd2.golubev_107.voting_service.service.dto.VoteInptDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VotesResult;
 import by.it_academy.jd2.golubev_107.voting_service.service.impl.VoteServiceImpl;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EArtist;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EGenre;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -30,30 +32,45 @@ public class VotingServlet extends HttpServlet {
     private static final String GENRE_PARAM = "genre";
     private static final String COMMENT_PARAM = "comment";
     private static final IVoteService voteService = VoteServiceImpl.getInstance();
+    private static final List<String> initArtists = new ArrayList<>();
+    private static final List<String> initGenres = new ArrayList<>();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         voteService.init();
+        for (EArtist artist : EArtist.values()) {
+            initArtists.add(artist.name());
+        }
+        for (EGenre genre : EGenre.values()) {
+            initGenres.add(genre.name());
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setEncodingContentType(req, resp);
-        try (PrintWriter writer = resp.getWriter()) {
-            try {
-                VotesResult result = voteService.calculate(toVoteInputDto(req));
-                printResult(writer, result);
-            } catch (RuntimeException e) {
-                System.out.println(e.getMessage());
-                printError(writer, e.getMessage());
-            }
-        } catch (Exception e) {
+//        try (PrintWriter writer = resp.getWriter()) {
+        try {
+            VotesResult result = voteService.calculate(toVoteInputDto(req));
+//                printResult(writer, result);
+            req.setAttribute("artists", result.getArtistVotes());
+            req.setAttribute("genres", result.getGenreVotes());
+            req.setAttribute("comments", result.getAllComments());
+            req.getRequestDispatcher("jsp/result.jsp").forward(req, resp);
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+//                printError(writer, e.getMessage());
         }
+//        } catch (Exception e) {
+//        }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setEncodingContentType(req, resp);
+        req.setAttribute("artists", initArtists);
+        req.setAttribute("genres", initGenres);
+        req.getRequestDispatcher("jsp/vote_form.jsp").forward(req, resp);
     }
 
     private VoteInptDto toVoteInputDto(HttpServletRequest req) {
@@ -103,7 +120,7 @@ public class VotingServlet extends HttpServlet {
     private String printComments(List<Comment> comments) {
         StringBuilder out = new StringBuilder();
         out.append("<h3>The comments received: </h3>\n");
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy  HH:mm");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy  HH:mm:ss");
         for (Comment comment : comments) {
             out.append(String.format("<p> %s : %s </p>\n", dateFormat.format(comment.getDateVoted()), comment.getTextComment()));
         }
