@@ -31,9 +31,9 @@ public class VotingServlet extends HttpServlet {
     private static final String ARTIST_PARAM = "artistName";
     private static final String GENRE_PARAM = "genre";
     private static final String COMMENT_PARAM = "comment";
-    private static final IVoteService voteService = VoteServiceImpl.getInstance();
-    private static final List<String> initArtists = new ArrayList<>();
-    private static final List<String> initGenres = new ArrayList<>();
+    private final IVoteService voteService = VoteServiceImpl.getInstance();
+    private final List<String> initArtists = new ArrayList<>();
+    private final List<String> initGenres = new ArrayList<>();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
