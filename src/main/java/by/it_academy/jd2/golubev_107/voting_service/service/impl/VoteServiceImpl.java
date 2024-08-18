@@ -21,8 +21,8 @@ import java.util.TreeMap;
 
 public class VoteServiceImpl implements IVoteService {
 
-    private static final IVoteStorage voteStorage = VoteStorageImpl.getInstance();
     private static final IVoteService instance = new VoteServiceImpl();
+    private final IVoteStorage voteStorage = VoteStorageImpl.getInstance();
     private final List<Vote> allVotes = new ArrayList<>();
     private final Map<EArtist, List<Vote>> artists = new HashMap<>();
     private final Map<EGenre, List<Vote>> genres = new HashMap<>();
