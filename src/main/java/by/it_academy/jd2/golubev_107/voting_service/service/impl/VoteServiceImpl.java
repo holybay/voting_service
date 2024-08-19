@@ -74,7 +74,6 @@ public class VoteServiceImpl implements IVoteService {
             }
             return a1.name().compareTo(a2.name());
         });
-//        Map<EArtist, Integer> sortedMap = new TreeMap<>(Comparator.comparing(toSort::get).reversed());
         sortedMap.putAll(toSort);
         return sortedMap;
     }

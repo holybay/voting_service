@@ -15,13 +15,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @WebServlet(urlPatterns = "/votes")
 public class VotingServlet extends HttpServlet {
@@ -49,20 +46,15 @@ public class VotingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setEncodingContentType(req, resp);
-//        try (PrintWriter writer = resp.getWriter()) {
         try {
             VotesResult result = voteService.calculate(toVoteInputDto(req));
-//                printResult(writer, result);
             req.setAttribute("artists", result.getArtistVotes());
             req.setAttribute("genres", result.getGenreVotes());
             req.setAttribute("comments", result.getAllComments());
             req.getRequestDispatcher("jsp/result.jsp").forward(req, resp);
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
-//                printError(writer, e.getMessage());
         }
-//        } catch (Exception e) {
-//        }
     }
 
     @Override
@@ -82,49 +74,9 @@ public class VotingServlet extends HttpServlet {
         return inputDto;
     }
 
-
-    private void printResult(PrintWriter writer, VotesResult result) {
-        List<String> printResults = new ArrayList<>();
-
-        String artistsToPrint = printCalculatedVotes(result.getArtistVotes());
-        String genresToPrint = printCalculatedVotes(result.getGenreVotes());
-        String commentToPrint = printComments(result.getAllComments());
-
-        printResults.add(artistsToPrint);
-        printResults.add(genresToPrint);
-        printResults.add(commentToPrint);
-
-        printResults.forEach(writer::println);
-        writer.println("<a href=\"./votingPage.html\">Back to voting</a>");
-    }
-
-    private void printError(PrintWriter writer, String errorMessages) {
-        writer.println(errorMessages.replace("\n", "<br>"));
-        writer.println("<br><a href=\"./votingPage.html\">Back to voting</a>");
-    }
-
     private void setEncodingContentType(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         req.setCharacterEncoding(ENCODING);
         resp.setContentType(CONTENT_TYPE);
-    }
-
-    private <T> String printCalculatedVotes(Map<T, Integer> results) {
-        StringBuilder out = new StringBuilder();
-        out.append("<h1>Vote results: </h1>\n");
-        for (Map.Entry<T, Integer> result : results.entrySet()) {
-            out.append(String.format("<p> %s : %d </p>\n", result.getKey(), result.getValue()));
-        }
-        return out.append("\n").toString();
-    }
-
-    private String printComments(List<Comment> comments) {
-        StringBuilder out = new StringBuilder();
-        out.append("<h3>The comments received: </h3>\n");
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy  HH:mm:ss");
-        for (Comment comment : comments) {
-            out.append(String.format("<p> %s : %s </p>\n", dateFormat.format(comment.getDateVoted()), comment.getTextComment()));
-        }
-        return out.toString();
     }
 
 }
