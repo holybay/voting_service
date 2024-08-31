@@ -1,4 +1,4 @@
-package by.it_academy.jd2.golubev_107.voting_service.controller;
+package by.it_academy.jd2.golubev_107.voting_service.controller.servlet;
 
 import by.it_academy.jd2.golubev_107.voting_service.service.IVoteService;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VoteInptDto;
