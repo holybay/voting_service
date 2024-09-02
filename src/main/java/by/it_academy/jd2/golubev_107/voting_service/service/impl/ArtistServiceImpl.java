@@ -1,7 +1,7 @@
 package by.it_academy.jd2.golubev_107.voting_service.service.impl;
 
 import by.it_academy.jd2.golubev_107.voting_service.service.IArtistService;
-import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistInDto;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistCreateDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistOutDto;
 import by.it_academy.jd2.golubev_107.voting_service.storage.IArtistStorage;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
@@ -24,7 +24,7 @@ public class ArtistServiceImpl implements IArtistService {
     }
 
     @Override
-    public void create(ArtistInDto inDto) {
+    public void create(ArtistCreateDto inDto) {
         validate(inDto);
         Artist entity = toEntity(inDto);
         artistStorage.create(entity);
@@ -48,9 +48,9 @@ public class ArtistServiceImpl implements IArtistService {
         return artistsOut;
     }
 
-    private void validate(ArtistInDto inDto) {
+    private void validate(ArtistCreateDto inDto) {
         List<String> errors = new ArrayList<>();
-        String artistName = inDto.getArtistName();
+        String artistName = inDto.getName();
         if (artistName == null) {
             errors.add("Artist name can't be blank!");
         }
@@ -65,13 +65,13 @@ public class ArtistServiceImpl implements IArtistService {
     private ArtistOutDto toOutDto(Artist artist) {
         ArtistOutDto outDto = new ArtistOutDto();
         outDto.setId(artist.getId());
-        outDto.setArtistName(artist.getName());
+        outDto.setName(artist.getName());
         return outDto;
     }
 
-    private Artist toEntity(ArtistInDto inDto) {
+    private Artist toEntity(ArtistCreateDto inDto) {
         Artist artist = new Artist();
-        artist.setName(inDto.getArtistName());
+        artist.setName(inDto.getName());
         return artist;
     }
 }

@@ -5,7 +5,7 @@ import java.util.Objects;
 public class ArtistOutDto {
 
     private Long id;
-    private String artistName;
+    private String name;
 
     public Long getId() {
         return id;
@@ -15,12 +15,12 @@ public class ArtistOutDto {
         this.id = id;
     }
 
-    public String getArtistName() {
-        return artistName;
+    public String getName() {
+        return name;
     }
 
-    public void setArtistName(String artistName) {
-        this.artistName = artistName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -28,19 +28,19 @@ public class ArtistOutDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ArtistOutDto that = (ArtistOutDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(artistName, that.artistName);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, artistName);
+        return Objects.hash(id, name);
     }
 
     @Override
     public String toString() {
         return "ArtistOutDto{" +
                 "id=" + id +
-                ", artistName='" + artistName + '\'' +
+                ", artistName='" + name + '\'' +
                 '}';
     }
 }

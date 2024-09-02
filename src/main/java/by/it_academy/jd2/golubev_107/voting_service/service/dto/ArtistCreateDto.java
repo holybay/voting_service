@@ -2,35 +2,35 @@ package by.it_academy.jd2.golubev_107.voting_service.service.dto;
 
 import java.util.Objects;
 
-public class ArtistInDto {
+public class ArtistCreateDto {
 
-    private String artistName;
+    private String name;
 
-    public String getArtistName() {
-        return artistName;
+    public String getName() {
+        return name;
     }
 
-    public void setArtistName(String artistName) {
-        this.artistName = artistName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ArtistInDto that = (ArtistInDto) o;
-        return Objects.equals(artistName, that.artistName);
+        ArtistCreateDto that = (ArtistCreateDto) o;
+        return Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(artistName);
+        return Objects.hashCode(name);
     }
 
     @Override
     public String toString() {
         return "ArtistInDto{" +
-                "artistName='" + artistName + '\'' +
+                "artistName='" + name + '\'' +
                 '}';
     }
 }

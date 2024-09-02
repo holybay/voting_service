@@ -1,7 +1,7 @@
 package by.it_academy.jd2.golubev_107.voting_service.controller.servlet;
 
 import by.it_academy.jd2.golubev_107.voting_service.service.IArtistService;
-import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistInDto;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistCreateDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.impl.ArtistServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -37,9 +37,9 @@ public class ArtistServlet extends HttpServlet {
         }
     }
 
-    private ArtistInDto toInDto(HttpServletRequest req) {
-        ArtistInDto inDto = new ArtistInDto();
-        inDto.setArtistName(req.getParameter(PARAM_ARTIST_NAME));
+    private ArtistCreateDto toInDto(HttpServletRequest req) {
+        ArtistCreateDto inDto = new ArtistCreateDto();
+        inDto.setName(req.getParameter(PARAM_ARTIST_NAME));
         return inDto;
     }
 
