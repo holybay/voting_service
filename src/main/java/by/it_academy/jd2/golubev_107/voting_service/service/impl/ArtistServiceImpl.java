@@ -3,6 +3,7 @@ package by.it_academy.jd2.golubev_107.voting_service.service.impl;
 import by.it_academy.jd2.golubev_107.voting_service.service.IArtistService;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistCreateDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistOutDto;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistVotingDtoSimple;
 import by.it_academy.jd2.golubev_107.voting_service.storage.IArtistStorage;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.impl.ArtistStorageImpl;
@@ -46,6 +47,19 @@ public class ArtistServiceImpl implements IArtistService {
             artistsOut.add(toOutDto(artist));
         }
         return artistsOut;
+    }
+
+    @Override
+    public List<String> validate(ArtistVotingDtoSimple dto) {
+        List<String> errors = new ArrayList<>();
+        Long id = dto.getId();
+        if (id == null) {
+            errors.add("Vote form has been changed! Such artist doesn't exist!");
+        }
+        if (id != null && artistStorage.readById(id) == null) {
+            errors.add("Vote form has been changed! Such artist doesn't exist!");
+        }
+        return errors;
     }
 
     private void validate(ArtistCreateDto inDto) {
