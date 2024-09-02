@@ -1,11 +1,15 @@
 package by.it_academy.jd2.golubev_107.voting_service.controller.servlet;
 
+import by.it_academy.jd2.golubev_107.voting_service.service.IArtistService;
 import by.it_academy.jd2.golubev_107.voting_service.service.IVoteService;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistOutDto;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistVotingDtoFull;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistVotingDtoSimple;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VoteInptDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VotesResult;
+import by.it_academy.jd2.golubev_107.voting_service.service.impl.ArtistServiceImpl;
 import by.it_academy.jd2.golubev_107.voting_service.service.impl.VoteServiceImpl;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
-import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EArtist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EGenre;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -25,19 +29,20 @@ public class VotingServlet extends HttpServlet {
 
     private static final String ENCODING = "UTF-8";
     private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
-    private static final String ARTIST_PARAM = "artistName";
+    private static final String ARTIST_PARAM = "artistId";
     private static final String GENRE_PARAM = "genre";
     private static final String COMMENT_PARAM = "comment";
     private final IVoteService voteService = VoteServiceImpl.getInstance();
-    private final List<String> initArtists = new ArrayList<>();
+    private final IArtistService artistService = ArtistServiceImpl.getInstance();
     private final List<String> initGenres = new ArrayList<>();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        voteService.init();
-        for (EArtist artist : EArtist.values()) {
-            initArtists.add(artist.name());
+        List<ArtistVotingDtoFull> artistsToInit = new ArrayList<>();
+        for (ArtistOutDto outDto : artistService.getAll()) {
+            artistsToInit.add(toArtistVotingDtoFull(outDto));
         }
+        voteService.init(artistsToInit);
         for (EGenre genre : EGenre.values()) {
             initGenres.add(genre.name());
         }
@@ -60,18 +65,31 @@ public class VotingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setEncodingContentType(req, resp);
-        req.setAttribute("artists", initArtists);
+        req.setAttribute("artists", artistService.getAll());
         req.setAttribute("genres", initGenres);
         req.getRequestDispatcher("jsp/vote_form.jsp").forward(req, resp);
     }
 
     private VoteInptDto toVoteInputDto(HttpServletRequest req) {
         VoteInptDto inputDto = new VoteInptDto();
-        inputDto.setArtistName(req.getParameter(ARTIST_PARAM));
+        inputDto.setArtist(toArtistVotingDtoSimple(req));
         inputDto.setGenres(req.getParameterValues(GENRE_PARAM));
         Comment comment = new Comment(req.getParameter(COMMENT_PARAM), LocalDateTime.now());
         inputDto.setComment(comment);
         return inputDto;
+    }
+
+    private ArtistVotingDtoSimple toArtistVotingDtoSimple(HttpServletRequest req) {
+        ArtistVotingDtoSimple artistVotingDtoFull = new ArtistVotingDtoSimple();
+        artistVotingDtoFull.setId(Long.parseLong(req.getParameter(ARTIST_PARAM)));
+        return artistVotingDtoFull;
+    }
+
+    private ArtistVotingDtoFull toArtistVotingDtoFull(ArtistOutDto artistOutDto) {
+        ArtistVotingDtoFull artistVotingDto = new ArtistVotingDtoFull();
+        artistVotingDto.setId(artistOutDto.getId());
+        artistVotingDto.setName(artistOutDto.getName());
+        return artistVotingDto;
     }
 
     private void setEncodingContentType(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {

@@ -11,12 +11,12 @@
 <main>
     <form name="vote_page" method="post" action="votes">
         <fieldset>
-            <legend>Choose you favourite artist:</legend>
-            <div>
-                <c:forEach items="${artists}" var="artist">
-                    <input type="radio" name="artistName" value="<c:out value="${artist}"/>"/>${artist}<br>
-                </c:forEach>
-            </div>
+            <legend>Choose your favourite artist:</legend>
+            <c:forEach items="${artists}" var="artist">
+                <div>
+                    <input type="radio" name="artistId" value="<c:out value="${artist.id}"/>"/>${artist.name}<br>
+                </div>
+            </c:forEach>
         </fieldset>
         <fieldset>
             <legend>Choose 3-5 your favourite genres:</legend>

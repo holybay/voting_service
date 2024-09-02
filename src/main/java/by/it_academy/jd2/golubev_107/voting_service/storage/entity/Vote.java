@@ -5,16 +5,16 @@ import java.util.Objects;
 
 public class Vote {
 
-    private EArtist artistName;
+    private Artist artist;
     private List<EGenre> genres;
     private Comment comment;
 
-    public EArtist getArtistName() {
-        return artistName;
+    public Artist getArtist() {
+        return artist;
     }
 
-    public void setArtistName(EArtist artistName) {
-        this.artistName = artistName;
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 
     public List<EGenre> getGenres() {
@@ -38,18 +38,18 @@ public class Vote {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vote vote = (Vote) o;
-        return artistName == vote.artistName && Objects.equals(genres, vote.genres) && Objects.equals(comment, vote.comment);
+        return Objects.equals(artist, vote.artist) && Objects.equals(genres, vote.genres) && Objects.equals(comment, vote.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artistName, genres, comment);
+        return Objects.hash(artist, genres, comment);
     }
 
     @Override
     public String toString() {
         return "Vote{" +
-                "artistName=" + artistName +
+                "artist=" + artist +
                 ", genres=" + genres +
                 ", comment=" + comment +
                 '}';

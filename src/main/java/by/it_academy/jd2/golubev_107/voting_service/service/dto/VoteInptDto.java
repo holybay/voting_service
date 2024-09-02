@@ -7,16 +7,16 @@ import java.util.Objects;
 
 public class VoteInptDto {
 
-    private String artistName;
+    private ArtistVotingDtoSimple artist;
     private String[] genres;
     private Comment comment;
 
-    public String getArtistName() {
-        return artistName;
+    public ArtistVotingDtoSimple getArtist() {
+        return artist;
     }
 
-    public void setArtistName(String artistName) {
-        this.artistName = artistName;
+    public void setArtist(ArtistVotingDtoSimple artist) {
+        this.artist = artist;
     }
 
     public String[] getGenres() {
@@ -40,20 +40,16 @@ public class VoteInptDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VoteInptDto that = (VoteInptDto) o;
-        return Objects.equals(artistName, that.artistName) && Objects.deepEquals(genres, that.genres) && Objects.equals(comment, that.comment);
+        return Objects.equals(artist, that.artist) && Objects.deepEquals(genres, that.genres) && Objects.equals(comment, that.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artistName, Arrays.hashCode(genres), comment);
+        return Objects.hash(artist, Arrays.hashCode(genres), comment);
     }
 
     @Override
     public String toString() {
-        return "VoteInptDto{" +
-                "artistName='" + artistName + '\'' +
-                ", genres=" + Arrays.toString(genres) +
-                ", comment=" + comment +
-                '}';
+        return "VoteInptDto{" + "artist=" + artist + ", genres=" + Arrays.toString(genres) + ", comment=" + comment + '}';
     }
 }

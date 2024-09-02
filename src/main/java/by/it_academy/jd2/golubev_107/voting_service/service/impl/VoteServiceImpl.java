@@ -1,11 +1,14 @@
 package by.it_academy.jd2.golubev_107.voting_service.service.impl;
 
+import by.it_academy.jd2.golubev_107.voting_service.service.IArtistService;
 import by.it_academy.jd2.golubev_107.voting_service.service.IVoteService;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistOutDto;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistVotingDtoFull;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VoteInptDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.VotesResult;
 import by.it_academy.jd2.golubev_107.voting_service.storage.IVoteStorage;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
-import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EArtist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EGenre;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Vote;
 import by.it_academy.jd2.golubev_107.voting_service.storage.impl.VoteStorageImpl;
@@ -23,11 +26,7 @@ public class VoteServiceImpl implements IVoteService {
 
     private static final IVoteService instance = new VoteServiceImpl();
     private final IVoteStorage voteStorage = VoteStorageImpl.getInstance();
-    private final List<Vote> allVotes = new ArrayList<>();
-    private final Map<EArtist, List<Vote>> artists = new HashMap<>();
-    private final Map<EGenre, List<Vote>> genres = new HashMap<>();
-    private final List<Comment> comments = new ArrayList<>();
-
+    private final IArtistService artistService = ArtistServiceImpl.getInstance();
 
     private VoteServiceImpl() {
     }
@@ -37,8 +36,15 @@ public class VoteServiceImpl implements IVoteService {
     }
 
     @Override
-    public void init() {
-        voteStorage.init();
+    public void init(List<ArtistVotingDtoFull> artistDtos) {
+        if (artistDtos.isEmpty()) {
+            throw new RuntimeException("There are not artists to vote for!");
+        }
+        List<Artist> artists = new ArrayList<>();
+        for (ArtistVotingDtoFull dto : artistDtos) {
+            artists.add(toArtistEntity(dto));
+        }
+        voteStorage.init(artists);
     }
 
     @Override
@@ -47,11 +53,11 @@ public class VoteServiceImpl implements IVoteService {
         Vote voteToSave = toVote(inDto);
         voteStorage.save(voteToSave);
 
-        Map<EArtist, Integer> calculatedArtists = calculateArtists(voteStorage.getArtists());
+        Map<Artist, Integer> calculatedArtists = calculateArtists(voteStorage.getArtists());
         Map<EGenre, Integer> calculatedGenres = calculateGenres(voteStorage.getGenres());
         List<Comment> commentResults = new ArrayList<>(voteStorage.getComments());
 
-        Map<EArtist, Integer> sortedCalcArtists = sortArtistsByVotes(calculatedArtists);
+        Map<Artist, Integer> sortedCalcArtists = sortArtistsByVotes(calculatedArtists);
         Map<EGenre, Integer> sortedCalcGenres = sortGenresByVotes(calculatedGenres);
         commentResults.sort(Comparator.comparing(Comment::getDateVoted).reversed());
 
@@ -60,19 +66,34 @@ public class VoteServiceImpl implements IVoteService {
 
     private Vote toVote(VoteInptDto inDto) {
         Vote toSave = new Vote();
-        toSave.setArtistName(EArtist.valueOf(inDto.getArtistName()));
+        ArtistOutDto artistOutDto = artistService.getById(inDto.getArtist().getId());
+        toSave.setArtist(toArtistEntity(artistOutDto));
         toSave.setGenres(Util.toEGenresList(inDto.getGenres()));
         toSave.setComment(inDto.getComment());
         return toSave;
     }
 
-    private Map<EArtist, Integer> sortArtistsByVotes(Map<EArtist, Integer> toSort) {
-        Map<EArtist, Integer> sortedMap = new TreeMap<>((a1, a2) -> {
+    private Artist toArtistEntity(ArtistVotingDtoFull artistVotingDto) {
+        Artist artist = new Artist();
+        artist.setId(artistVotingDto.getId());
+        artist.setName(artistVotingDto.getName());
+        return artist;
+    }
+
+    private Artist toArtistEntity(ArtistOutDto outDto) {
+        Artist artist = new Artist();
+        artist.setId(outDto.getId());
+        artist.setName(outDto.getName());
+        return artist;
+    }
+
+    private Map<Artist, Integer> sortArtistsByVotes(Map<Artist, Integer> toSort) {
+        Map<Artist, Integer> sortedMap = new TreeMap<>((a1, a2) -> {
             int compare = toSort.get(a2).compareTo(toSort.get(a1));
             if (compare != 0) {
                 return compare;
             }
-            return a1.name().compareTo(a2.name());
+            return a1.getName().compareTo(a2.getName());
         });
         sortedMap.putAll(toSort);
         return sortedMap;
@@ -90,25 +111,9 @@ public class VoteServiceImpl implements IVoteService {
         return sortedMap;
     }
 
-    private void saveToStorages(Vote vote) {
-        allVotes.add(vote);
-        comments.add(vote.getComment());
-        artists.compute(vote.getArtistName(), (k, v) -> {
-            v.add(vote);
-            return v;
-        });
-
-        for (EGenre genre : vote.getGenres()) {
-            genres.compute(genre, (k, v) -> {
-                v.add(vote);
-                return v;
-            });
-        }
-    }
-
-    private Map<EArtist, Integer> calculateArtists(Map<EArtist, List<Vote>> storage) {
-        Map<EArtist, Integer> calculated = new HashMap<>();
-        for (Map.Entry<EArtist, List<Vote>> entry : storage.entrySet()) {
+    private Map<Artist, Integer> calculateArtists(Map<Artist, List<Vote>> storage) {
+        Map<Artist, Integer> calculated = new HashMap<>();
+        for (Map.Entry<Artist, List<Vote>> entry : storage.entrySet()) {
             calculated.put(entry.getKey(), entry.getValue().size());
         }
         return calculated;
@@ -124,7 +129,11 @@ public class VoteServiceImpl implements IVoteService {
 
     private void validate(VoteInptDto inDto) {
         List<String> errors = new ArrayList<>();
-        enumCheck(EArtist.class, inDto.getArtistName(), errors, "ARTIST");
+
+        List<String> artistErrors = artistService.validate(inDto.getArtist());
+        if (!artistErrors.isEmpty()) {
+            errors.addAll(artistErrors);
+        }
 
         int genresCounter = 0;
         for (String genre : inDto.getGenres()) {

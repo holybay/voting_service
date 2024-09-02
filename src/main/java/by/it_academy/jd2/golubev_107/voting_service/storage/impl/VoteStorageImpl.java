@@ -1,8 +1,8 @@
 package by.it_academy.jd2.golubev_107.voting_service.storage.impl;
 
 import by.it_academy.jd2.golubev_107.voting_service.storage.IVoteStorage;
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
-import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EArtist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EGenre;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Vote;
 
@@ -15,7 +15,7 @@ public class VoteStorageImpl implements IVoteStorage {
 
     private static final IVoteStorage instance = new VoteStorageImpl();
     private final List<Vote> allVotes = new ArrayList<>();
-    private final Map<EArtist, List<Vote>> artists = new HashMap<>();
+    private final Map<Artist, List<Vote>> artists = new HashMap<>();
     private final Map<EGenre, List<Vote>> genres = new HashMap<>();
     private final List<Comment> comments = new ArrayList<>();
 
@@ -27,9 +27,9 @@ public class VoteStorageImpl implements IVoteStorage {
     }
 
     @Override
-    public void init() {
-        for (EArtist artist : EArtist.values()) {
-            artists.put(artist, new ArrayList<>(EArtist.values().length));
+    public void init(List<Artist> artistsToInit) {
+        for (Artist artist : artistsToInit) {
+            artists.put(artist, new ArrayList<>(artistsToInit.size()));
         }
         for (EGenre genre : EGenre.values()) {
             genres.put(genre, new ArrayList<>(EGenre.values().length));
@@ -44,7 +44,7 @@ public class VoteStorageImpl implements IVoteStorage {
     private void saveToStorages(Vote vote) {
         allVotes.add(vote);
         comments.add(vote.getComment());
-        artists.compute(vote.getArtistName(), (k, v) -> {
+        artists.compute(vote.getArtist(), (k, v) -> {
             v.add(vote);
             return v;
         });
@@ -58,7 +58,7 @@ public class VoteStorageImpl implements IVoteStorage {
     }
 
     @Override
-    public Map<EArtist, List<Vote>> getArtists() {
+    public Map<Artist, List<Vote>> getArtists() {
         return Map.copyOf(artists);
     }
 
