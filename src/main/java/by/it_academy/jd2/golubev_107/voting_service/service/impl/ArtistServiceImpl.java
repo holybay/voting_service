@@ -6,7 +6,7 @@ import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistOutDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistVotingDtoSimple;
 import by.it_academy.jd2.golubev_107.voting_service.storage.IArtistStorage;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
-import by.it_academy.jd2.golubev_107.voting_service.storage.impl.ArtistStorageImpl;
+import by.it_academy.jd2.golubev_107.voting_service.storage.impl.ArtistStorageDbImpl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +15,7 @@ import java.util.List;
 public class ArtistServiceImpl implements IArtistService {
 
     private static final IArtistService INSTANCE = new ArtistServiceImpl();
-    private final IArtistStorage artistStorage = ArtistStorageImpl.getInstance();
+    private final IArtistStorage artistStorage = ArtistStorageDbImpl.getInstance();
 
     private ArtistServiceImpl() {
     }
