@@ -13,7 +13,7 @@
         <legend>Artist vote results:</legend>
             <div>
                 <c:forEach items="${artists}" var="artist">
-                    <p>${artist.key} : ${artist.value}</p>
+                    <p>${artist.key.name} : ${artist.value}</p>
                 </c:forEach>
             </div>
     </fieldset>

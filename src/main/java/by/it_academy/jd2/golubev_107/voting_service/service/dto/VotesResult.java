@@ -1,7 +1,7 @@
 package by.it_academy.jd2.golubev_107.voting_service.service.dto;
 
+import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
-import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EArtist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.EGenre;
 
 import java.util.List;
@@ -10,17 +10,17 @@ import java.util.Objects;
 
 public class VotesResult {
 
-    private final Map<EArtist, Integer> artistVotes;
+    private final Map<Artist, Integer> artistVotes;
     private final Map<EGenre, Integer> genreVotes;
     private final List<Comment> comments;
 
-    public VotesResult(Map<EArtist, Integer> artistVotes, Map<EGenre, Integer> genreVotes, List<Comment> comments) {
+    public VotesResult(Map<Artist, Integer> artistVotes, Map<EGenre, Integer> genreVotes, List<Comment> comments) {
         this.artistVotes = artistVotes;
         this.genreVotes = genreVotes;
         this.comments = comments;
     }
 
-    public Map<EArtist, Integer> getArtistVotes() {
+    public Map<Artist, Integer> getArtistVotes() {
         return artistVotes;
     }
 
