@@ -12,7 +12,7 @@ public class ArtistStorageMemoryImpl implements IArtistStorage {
 
     private static final IArtistStorage INSTANCE = new ArtistStorageMemoryImpl();
     private final Map<Long, Artist> storage = new HashMap<>();
-    private long id = 0L;
+    private long id;
 
     {
         List<Artist> initArtists = memoryArtistInit();
@@ -41,10 +41,11 @@ public class ArtistStorageMemoryImpl implements IArtistStorage {
     }
 
     @Override
-    public void create(Artist artist) {
+    public Long create(Artist artist) {
         long id = this.id++;
         artist.setId(id);
         storage.put(id, artist);
+        return id;
     }
 
     @Override

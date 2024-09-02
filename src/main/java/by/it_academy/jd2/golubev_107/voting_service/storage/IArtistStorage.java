@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IArtistStorage {
 
-    void create(Artist artist);
+    Long create(Artist artist);
 
     Artist readById(Long id);
 
