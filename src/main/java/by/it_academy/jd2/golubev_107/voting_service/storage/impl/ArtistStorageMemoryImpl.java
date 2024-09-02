@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ArtistStorageImpl implements IArtistStorage {
+public class ArtistStorageMemoryImpl implements IArtistStorage {
 
-    private static final IArtistStorage INSTANCE = new ArtistStorageImpl();
+    private static final IArtistStorage INSTANCE = new ArtistStorageMemoryImpl();
     private final Map<Long, Artist> storage = new HashMap<>();
     private long id = 0L;
 
@@ -25,7 +25,7 @@ public class ArtistStorageImpl implements IArtistStorage {
         return INSTANCE;
     }
 
-    private ArtistStorageImpl() {
+    private ArtistStorageMemoryImpl() {
     }
 
     private List<Artist> memoryArtistInit() {
