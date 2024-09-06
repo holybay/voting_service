@@ -1,9 +1,9 @@
 package by.it_academy.jd2.golubev_107.voting_service.service.impl;
 
 import by.it_academy.jd2.golubev_107.voting_service.service.IArtistService;
-import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistCreateDto;
-import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistOutDto;
-import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistVotingDtoSimple;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistCreateDto;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistOutDto;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistVotingDtoSimple;
 import by.it_academy.jd2.golubev_107.voting_service.storage.IArtistStorage;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.impl.ArtistStorageDbImpl;

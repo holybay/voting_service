@@ -1,7 +1,7 @@
 package by.it_academy.jd2.golubev_107.voting_service.controller.servlet;
 
 import by.it_academy.jd2.golubev_107.voting_service.service.IGenreService;
-import by.it_academy.jd2.golubev_107.voting_service.service.dto.GenreCreateDto;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreCreateDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.impl.GenreServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

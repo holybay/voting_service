@@ -1,4 +1,4 @@
-package by.it_academy.jd2.golubev_107.voting_service.service.dto;
+package by.it_academy.jd2.golubev_107.voting_service.service.dto.vote;
 
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;

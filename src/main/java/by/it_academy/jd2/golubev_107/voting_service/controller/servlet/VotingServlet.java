@@ -2,11 +2,11 @@ package by.it_academy.jd2.golubev_107.voting_service.controller.servlet;
 
 import by.it_academy.jd2.golubev_107.voting_service.service.IArtistService;
 import by.it_academy.jd2.golubev_107.voting_service.service.IVoteService;
-import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistOutDto;
-import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistVotingDtoFull;
-import by.it_academy.jd2.golubev_107.voting_service.service.dto.ArtistVotingDtoSimple;
-import by.it_academy.jd2.golubev_107.voting_service.service.dto.VoteInptDto;
-import by.it_academy.jd2.golubev_107.voting_service.service.dto.VotesResult;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistOutDto;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistVotingDtoFull;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistVotingDtoSimple;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.vote.VoteInptDto;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.vote.VotesResult;
 import by.it_academy.jd2.golubev_107.voting_service.service.impl.ArtistServiceImpl;
 import by.it_academy.jd2.golubev_107.voting_service.service.impl.VoteServiceImpl;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;

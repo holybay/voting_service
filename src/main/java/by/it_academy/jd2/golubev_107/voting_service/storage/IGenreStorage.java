@@ -1,6 +1,5 @@
 package by.it_academy.jd2.golubev_107.voting_service.storage;
 
-import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Genre;
 
 import java.util.List;

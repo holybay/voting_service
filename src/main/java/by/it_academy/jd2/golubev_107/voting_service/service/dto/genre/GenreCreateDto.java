@@ -1,8 +1,8 @@
-package by.it_academy.jd2.golubev_107.voting_service.service.dto;
+package by.it_academy.jd2.golubev_107.voting_service.service.dto.genre;
 
 import java.util.Objects;
 
-public class ArtistCreateDto {
+public class GenreCreateDto {
 
     private String name;
 
@@ -18,7 +18,7 @@ public class ArtistCreateDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ArtistCreateDto that = (ArtistCreateDto) o;
+        GenreCreateDto that = (GenreCreateDto) o;
         return Objects.equals(name, that.name);
     }
 
@@ -29,8 +29,8 @@ public class ArtistCreateDto {
 
     @Override
     public String toString() {
-        return "ArtistInDto{" +
-                "artistName='" + name + '\'' +
+        return "GenreCreateDto{" +
+                "name='" + name + '\'' +
                 '}';
     }
 }
