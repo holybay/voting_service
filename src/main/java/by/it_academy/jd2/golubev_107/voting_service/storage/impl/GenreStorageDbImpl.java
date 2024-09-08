@@ -15,10 +15,10 @@ import java.util.List;
 public class GenreStorageDbImpl implements IGenreStorage {
     private static final IGenreStorage INSTANCE = new GenreStorageDbImpl();
     private final IConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
-    public static final String CREATE_GENRE_QUERY = "INSERT INTO app.genre (\"name\") VALUES(?) RETURNING id;";
-    public static final String SELECT_BY_ID_QUERY = "SELECT id, \"name\" FROM app.genre WHERE id = ?;";
-    public static final String SELECT_BY_NAME_QUERY = "SELECT id, \"name\" FROM app.genre WHERE name = ?;";
-    public static final String SELECT_ALL_QUERY = "SELECT id, \"name\" FROM app.genre;";
+    public static final String CREATE_GENRE_QUERY = "INSERT INTO app.genre (name) VALUES(?) RETURNING id;";
+    public static final String SELECT_BY_ID_QUERY = "SELECT id, name FROM app.genre WHERE id = ?;";
+    public static final String SELECT_BY_NAME_QUERY = "SELECT id, name FROM app.genre WHERE name = ?;";
+    public static final String SELECT_ALL_QUERY = "SELECT id, name FROM app.genre;";
 
     private GenreStorageDbImpl() {
     }
