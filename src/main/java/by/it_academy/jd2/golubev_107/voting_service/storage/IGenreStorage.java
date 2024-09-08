@@ -10,6 +10,8 @@ public interface IGenreStorage {
 
     Genre readById(Long id);
 
+    List<Genre> readAllByIds(List<Long> id);
+
     Genre readByName(String name);
 
     List<Genre> readAll();
