@@ -3,6 +3,7 @@ package by.it_academy.jd2.golubev_107.voting_service.service.impl;
 import by.it_academy.jd2.golubev_107.voting_service.service.IGenreService;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreCreateDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreOutDto;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreVotingDtoSimple;
 import by.it_academy.jd2.golubev_107.voting_service.storage.IGenreStorage;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Genre;
 import by.it_academy.jd2.golubev_107.voting_service.storage.impl.GenreStorageDbImpl;
@@ -10,6 +11,8 @@ import by.it_academy.jd2.golubev_107.voting_service.storage.impl.GenreStorageDbI
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GenreServiceImpl implements IGenreService {
 
@@ -46,6 +49,29 @@ public class GenreServiceImpl implements IGenreService {
             outDtos.add(toOutDto(genre));
         }
         return outDtos;
+    }
+
+    @Override
+    public List<String> validate(List<GenreVotingDtoSimple> dtoToValidate) {
+        List<Long> dtoIds = dtoToValidate.stream()
+                                         .map(GenreVotingDtoSimple::getId)
+                                         .toList();
+
+        Set<Long> fromDb = genreStorage.readAllByIds(dtoIds).stream()
+                                       .map(Genre::getId)
+                                       .collect(Collectors.toSet());
+
+        List<String> validErrs = new ArrayList<>();
+        if (fromDb.isEmpty()) {
+            validErrs.add(String.format("Incorrect genre ids provided: %s", dtoIds));
+        }
+
+        dtoIds.forEach(e -> {
+            if (!fromDb.contains(e)) {
+                validErrs.add("Incorrect genre id provided: " + e);
+            }
+        });
+        return validErrs;
     }
 
     private void validate(GenreCreateDto inDto) {
