@@ -21,7 +21,7 @@
         <legend>Favourite genres vote results:</legend>
             <div>
                 <c:forEach items="${genres}" var="genre">
-                    <p>${genre.key} : ${genre.value}</p>
+                    <p>${genre.key.name} : ${genre.value}</p>
                 </c:forEach>
             </div>
     </fieldset>
