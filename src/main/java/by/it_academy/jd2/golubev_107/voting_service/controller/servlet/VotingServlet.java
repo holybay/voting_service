@@ -67,9 +67,9 @@ public class VotingServlet extends HttpServlet {
     }
 
     private ArtistVotingDtoSimple toArtistVotingDtoSimple(HttpServletRequest req) {
-        ArtistVotingDtoSimple artistVotingDtoFull = new ArtistVotingDtoSimple();
-        artistVotingDtoFull.setId(Long.parseLong(req.getParameter(ARTIST_PARAM)));
-        return artistVotingDtoFull;
+        ArtistVotingDtoSimple dto = new ArtistVotingDtoSimple();
+        dto.setId(Long.parseLong(req.getParameter(ARTIST_PARAM)));
+        return dto;
     }
 
     private List<GenreVotingDtoSimple> getVotedGenres(HttpServletRequest req) {
