@@ -14,6 +14,7 @@ import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Genre;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Vote;
+import by.it_academy.jd2.golubev_107.voting_service.storage.factory.StorageFactory;
 import by.it_academy.jd2.golubev_107.voting_service.storage.impl.VoteStorageImpl;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import java.util.TreeMap;
 public class VoteServiceImpl implements IVoteService {
 
     private static final IVoteService instance = new VoteServiceImpl();
-    private final IVoteStorage voteStorage = VoteStorageImpl.getInstance();
+    private final IVoteStorage voteStorage = StorageFactory.getInstance().getVoteStorage();
     private final IArtistService artistService = ArtistServiceImpl.getInstance();
     private final IGenreService genreService = GenreServiceImpl.getInstance();
 

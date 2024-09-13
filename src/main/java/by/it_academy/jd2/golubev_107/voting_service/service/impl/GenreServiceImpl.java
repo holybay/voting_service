@@ -6,7 +6,7 @@ import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreOutDt
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreVotingDtoSimple;
 import by.it_academy.jd2.golubev_107.voting_service.storage.IGenreStorage;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Genre;
-import by.it_academy.jd2.golubev_107.voting_service.storage.impl.GenreStorageDbImpl;
+import by.it_academy.jd2.golubev_107.voting_service.storage.factory.StorageFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class GenreServiceImpl implements IGenreService {
 
     private static final IGenreService INSTANCE = new GenreServiceImpl();
-    private final IGenreStorage genreStorage = GenreStorageDbImpl.getInstance();
+    private final IGenreStorage genreStorage = StorageFactory.getInstance().getGenreStorage();
 
     private GenreServiceImpl() {
     }

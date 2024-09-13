@@ -2,7 +2,6 @@ package by.it_academy.jd2.golubev_107.voting_service.storage.impl;
 
 import by.it_academy.jd2.golubev_107.voting_service.storage.IArtistStorage;
 import by.it_academy.jd2.golubev_107.voting_service.storage.connection.IConnectionManager;
-import by.it_academy.jd2.golubev_107.voting_service.storage.connection.impl.ConnectionManagerImpl;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
 
 import java.sql.Connection;
@@ -14,18 +13,14 @@ import java.util.List;
 
 public class ArtistStorageDbImpl implements IArtistStorage {
 
-    private static final IArtistStorage INSTANCE = new ArtistStorageDbImpl();
     public static final String CREATE_ARTIST_QUERY = "INSERT INTO app.artist (name) VALUES(?) RETURNING id;";
     public static final String SELECT_BY_ID_QUERY = "SELECT id, name FROM app.artist WHERE id = ?;";
     public static final String SELECT_ALL_ARTISTS_BY_NAME_QUERY = "SELECT id, name FROM app.artist WHERE name = ?;";
     public static final String SELECT_ALL_QUERY = "SELECT id, name FROM app.artist;";
-    private final IConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
+    private final IConnectionManager connectionManager;
 
-    public static IArtistStorage getInstance() {
-        return INSTANCE;
-    }
-
-    private ArtistStorageDbImpl() {
+    public ArtistStorageDbImpl(IConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
     }
 
     @Override
