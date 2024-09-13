@@ -22,7 +22,7 @@
             <legend>Choose 3-5 your favourite genres:</legend>
             <div>
                 <c:forEach items="${genres}" var="genre">
-                    <label><input type="checkbox" name="genre" value="<c:out value="${genre}"/>"/>${genre}</label><br>
+                    <label><input type="checkbox" name="genreId" value="<c:out value="${genre.id}"/>"/>${genre.name}</label><br>
                 </c:forEach>
             </div>
         </fieldset>

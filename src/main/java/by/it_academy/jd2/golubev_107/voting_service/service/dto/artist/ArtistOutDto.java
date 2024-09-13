@@ -1,8 +1,8 @@
-package by.it_academy.jd2.golubev_107.voting_service.service.dto;
+package by.it_academy.jd2.golubev_107.voting_service.service.dto.artist;
 
 import java.util.Objects;
 
-public class ArtistVotingDtoFull {
+public class ArtistOutDto {
 
     private Long id;
     private String name;
@@ -27,7 +27,7 @@ public class ArtistVotingDtoFull {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ArtistVotingDtoFull that = (ArtistVotingDtoFull) o;
+        ArtistOutDto that = (ArtistOutDto) o;
         return Objects.equals(id, that.id) && Objects.equals(name, that.name);
     }
 
@@ -38,10 +38,9 @@ public class ArtistVotingDtoFull {
 
     @Override
     public String toString() {
-        return "ArtistVotingDtoFull{" +
+        return "ArtistOutDto{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", artistName='" + name + '\'' +
                 '}';
     }
 }
-

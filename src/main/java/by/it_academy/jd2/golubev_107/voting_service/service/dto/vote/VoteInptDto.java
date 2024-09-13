@@ -1,14 +1,16 @@
-package by.it_academy.jd2.golubev_107.voting_service.service.dto;
+package by.it_academy.jd2.golubev_107.voting_service.service.dto.vote;
 
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistVotingDtoSimple;
+import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreVotingDtoSimple;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class VoteInptDto {
 
     private ArtistVotingDtoSimple artist;
-    private String[] genres;
+    private List<GenreVotingDtoSimple> genres;
     private Comment comment;
 
     public ArtistVotingDtoSimple getArtist() {
@@ -19,11 +21,11 @@ public class VoteInptDto {
         this.artist = artist;
     }
 
-    public String[] getGenres() {
+    public List<GenreVotingDtoSimple> getGenres() {
         return genres;
     }
 
-    public void setGenres(String[] genres) {
+    public void setGenres(List<GenreVotingDtoSimple> genres) {
         this.genres = genres;
     }
 
@@ -40,16 +42,20 @@ public class VoteInptDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VoteInptDto that = (VoteInptDto) o;
-        return Objects.equals(artist, that.artist) && Objects.deepEquals(genres, that.genres) && Objects.equals(comment, that.comment);
+        return Objects.equals(artist, that.artist) && Objects.equals(genres, that.genres) && Objects.equals(comment, that.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(artist, Arrays.hashCode(genres), comment);
+        return Objects.hash(artist, genres, comment);
     }
 
     @Override
     public String toString() {
-        return "VoteInptDto{" + "artist=" + artist + ", genres=" + Arrays.toString(genres) + ", comment=" + comment + '}';
+        return "VoteInptDto{" +
+                "artist=" + artist +
+                ", genres=" + genres +
+                ", comment=" + comment +
+                '}';
     }
 }

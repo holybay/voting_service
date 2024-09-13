@@ -1,10 +1,17 @@
-package by.it_academy.jd2.golubev_107.voting_service.service.dto;
+package by.it_academy.jd2.golubev_107.voting_service.service.dto.genre;
 
 import java.util.Objects;
 
-public class ArtistVotingDtoSimple {
+public class GenreVotingDtoSimple {
 
     private Long id;
+
+    public GenreVotingDtoSimple() {
+    }
+
+    public GenreVotingDtoSimple(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;
@@ -18,7 +25,7 @@ public class ArtistVotingDtoSimple {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ArtistVotingDtoSimple that = (ArtistVotingDtoSimple) o;
+        GenreVotingDtoSimple that = (GenreVotingDtoSimple) o;
         return Objects.equals(id, that.id);
     }
 
@@ -29,7 +36,7 @@ public class ArtistVotingDtoSimple {
 
     @Override
     public String toString() {
-        return "ArtistVotingDtoSimple{" +
+        return "GenreVotingDtoSimple{" +
                 "id=" + id +
                 '}';
     }

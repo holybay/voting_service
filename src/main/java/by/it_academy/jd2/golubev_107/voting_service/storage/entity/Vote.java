@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Vote {
 
     private Artist artist;
-    private List<EGenre> genres;
+    private List<Genre> genres;
     private Comment comment;
 
     public Artist getArtist() {
@@ -17,11 +17,11 @@ public class Vote {
         this.artist = artist;
     }
 
-    public List<EGenre> getGenres() {
+    public List<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<EGenre> genres) {
+    public void setGenres(List<Genre> genres) {
         this.genres = genres;
     }
 

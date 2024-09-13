@@ -1,11 +1,19 @@
-package by.it_academy.jd2.golubev_107.voting_service.service.dto;
+package by.it_academy.jd2.golubev_107.voting_service.storage.entity;
 
 import java.util.Objects;
 
-public class ArtistOutDto {
+public class Genre {
 
     private Long id;
     private String name;
+
+    public Genre() {
+    }
+
+    public Genre(Genre genre) {
+        this.id = genre.id;
+        this.name = genre.name;
+    }
 
     public Long getId() {
         return id;
@@ -27,8 +35,8 @@ public class ArtistOutDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ArtistOutDto that = (ArtistOutDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
+        Genre genre = (Genre) o;
+        return Objects.equals(id, genre.id) && Objects.equals(name, genre.name);
     }
 
     @Override
@@ -38,9 +46,9 @@ public class ArtistOutDto {
 
     @Override
     public String toString() {
-        return "ArtistOutDto{" +
+        return "Genre{" +
                 "id=" + id +
-                ", artistName='" + name + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
