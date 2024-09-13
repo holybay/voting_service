@@ -21,6 +21,7 @@
         <jakarta.jstl-api.version>3.0.0</jakarta.jstl-api.version>
         <jakarta.jstl.version>3.0.1</jakarta.jstl.version>
         <postgresql.version>42.7.4</postgresql.version>
+        <c3p0.version>0.10.1</c3p0.version>
         <!--versions plugins-->
         <maven-war-plugin.version>3.4.0</maven-war-plugin.version>
         <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
@@ -44,15 +45,19 @@
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
             <version>${jakarta.jstl.version}</version>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>${c3p0.version}</version>
+        </dependency>
     </dependencies>
-
 
     <build>
         <plugins>
