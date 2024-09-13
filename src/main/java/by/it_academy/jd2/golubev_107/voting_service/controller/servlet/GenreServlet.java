@@ -2,7 +2,7 @@ package by.it_academy.jd2.golubev_107.voting_service.controller.servlet;
 
 import by.it_academy.jd2.golubev_107.voting_service.service.IGenreService;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreCreateDto;
-import by.it_academy.jd2.golubev_107.voting_service.service.impl.GenreServiceImpl;
+import by.it_academy.jd2.golubev_107.voting_service.service.factory.ServiceFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,10 +14,10 @@ import java.io.UnsupportedEncodingException;
 
 @WebServlet(urlPatterns = "/genres")
 public class GenreServlet extends HttpServlet {
+    public static final String PARAM_GENRE_NAME = "genreName";
     private static final String ENCODING = "UTF-8";
     private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
-    public static final String PARAM_GENRE_NAME = "genreName";
-    private final IGenreService genreService = GenreServiceImpl.getInstance();
+    private final IGenreService genreService = ServiceFactory.getInstance().getGenreService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

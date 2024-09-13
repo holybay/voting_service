@@ -2,7 +2,6 @@ package by.it_academy.jd2.golubev_107.voting_service.service.impl;
 
 import by.it_academy.jd2.golubev_107.voting_service.service.IArtistService;
 import by.it_academy.jd2.golubev_107.voting_service.service.IGenreService;
-import by.it_academy.jd2.golubev_107.voting_service.service.IVoteService;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistOutDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistVotingDtoFull;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreOutDto;
@@ -14,8 +13,6 @@ import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Genre;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Vote;
-import by.it_academy.jd2.golubev_107.voting_service.storage.factory.StorageFactory;
-import by.it_academy.jd2.golubev_107.voting_service.storage.impl.VoteStorageImpl;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -24,18 +21,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class VoteServiceImpl implements IVoteService {
+public class VoteServiceImpl implements by.it_academy.jd2.golubev_107.voting_service.service.IVoteService {
 
-    private static final IVoteService instance = new VoteServiceImpl();
-    private final IVoteStorage voteStorage = StorageFactory.getInstance().getVoteStorage();
-    private final IArtistService artistService = ArtistServiceImpl.getInstance();
-    private final IGenreService genreService = GenreServiceImpl.getInstance();
+    private final IVoteStorage voteStorage;
+    private final IArtistService artistService;
+    private final IGenreService genreService;
 
-    private VoteServiceImpl() {
-    }
-
-    public static IVoteService getInstance() {
-        return instance;
+    public VoteServiceImpl(IVoteStorage voteStorage, IArtistService artistService, IGenreService genreService) {
+        this.voteStorage = voteStorage;
+        this.artistService = artistService;
+        this.genreService = genreService;
     }
 
     @Override

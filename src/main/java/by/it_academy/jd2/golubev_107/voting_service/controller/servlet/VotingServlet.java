@@ -7,9 +7,7 @@ import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistVot
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreVotingDtoSimple;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.vote.VoteInptDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.vote.VotesResult;
-import by.it_academy.jd2.golubev_107.voting_service.service.impl.ArtistServiceImpl;
-import by.it_academy.jd2.golubev_107.voting_service.service.impl.GenreServiceImpl;
-import by.it_academy.jd2.golubev_107.voting_service.service.impl.VoteServiceImpl;
+import by.it_academy.jd2.golubev_107.voting_service.service.factory.ServiceFactory;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,9 +29,9 @@ public class VotingServlet extends HttpServlet {
     private static final String ARTIST_PARAM = "artistId";
     private static final String GENRE_PARAM = "genreId";
     private static final String COMMENT_PARAM = "comment";
-    private final IVoteService voteService = VoteServiceImpl.getInstance();
-    private final IArtistService artistService = ArtistServiceImpl.getInstance();
-    private final IGenreService genreService = GenreServiceImpl.getInstance();
+    private final IVoteService voteService = ServiceFactory.getInstance().getVoteService();
+    private final IArtistService artistService = ServiceFactory.getInstance().getArtistService();
+    private final IGenreService genreService = ServiceFactory.getInstance().getGenreService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

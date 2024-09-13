@@ -1,12 +1,10 @@
 package by.it_academy.jd2.golubev_107.voting_service.service.impl;
 
-import by.it_academy.jd2.golubev_107.voting_service.service.IGenreService;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreCreateDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreOutDto;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.genre.GenreVotingDtoSimple;
 import by.it_academy.jd2.golubev_107.voting_service.storage.IGenreStorage;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Genre;
-import by.it_academy.jd2.golubev_107.voting_service.storage.factory.StorageFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,16 +12,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class GenreServiceImpl implements IGenreService {
+public class GenreServiceImpl implements by.it_academy.jd2.golubev_107.voting_service.service.IGenreService {
 
-    private static final IGenreService INSTANCE = new GenreServiceImpl();
-    private final IGenreStorage genreStorage = StorageFactory.getInstance().getGenreStorage();
+    private final IGenreStorage genreStorage;
 
-    private GenreServiceImpl() {
-    }
-
-    public static IGenreService getInstance() {
-        return INSTANCE;
+    public GenreServiceImpl(IGenreStorage genreStorage) {
+        this.genreStorage = genreStorage;
     }
 
     @Override

@@ -6,7 +6,6 @@ import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistOut
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistVotingDtoSimple;
 import by.it_academy.jd2.golubev_107.voting_service.storage.IArtistStorage;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Artist;
-import by.it_academy.jd2.golubev_107.voting_service.storage.factory.StorageFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,14 +13,10 @@ import java.util.List;
 
 public class ArtistServiceImpl implements IArtistService {
 
-    private static final IArtistService INSTANCE = new ArtistServiceImpl();
-    private final IArtistStorage artistStorage = StorageFactory.getInstance().getArtistStorage();
+    private final IArtistStorage artistStorage;
 
-    private ArtistServiceImpl() {
-    }
-
-    public static IArtistService getInstance() {
-        return INSTANCE;
+    public ArtistServiceImpl(IArtistStorage artistStorage) {
+        this.artistStorage = artistStorage;
     }
 
     @Override
