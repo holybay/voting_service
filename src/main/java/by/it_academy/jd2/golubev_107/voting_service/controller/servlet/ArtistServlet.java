@@ -2,7 +2,7 @@ package by.it_academy.jd2.golubev_107.voting_service.controller.servlet;
 
 import by.it_academy.jd2.golubev_107.voting_service.service.IArtistService;
 import by.it_academy.jd2.golubev_107.voting_service.service.dto.artist.ArtistCreateDto;
-import by.it_academy.jd2.golubev_107.voting_service.service.impl.ArtistServiceImpl;
+import by.it_academy.jd2.golubev_107.voting_service.service.factory.ServiceFactory;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,10 +14,10 @@ import java.io.UnsupportedEncodingException;
 
 @WebServlet(urlPatterns = "/artists")
 public class ArtistServlet extends HttpServlet {
+    public static final String PARAM_ARTIST_NAME = "artistName";
     private static final String ENCODING = "UTF-8";
     private static final String CONTENT_TYPE = "text/html; charset=UTF-8";
-    public static final String PARAM_ARTIST_NAME = "artistName";
-    private final IArtistService artistService = ArtistServiceImpl.getInstance();
+    private final IArtistService artistService = ServiceFactory.getInstance().getArtistService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

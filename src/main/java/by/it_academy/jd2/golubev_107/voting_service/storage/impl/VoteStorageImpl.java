@@ -2,7 +2,6 @@ package by.it_academy.jd2.golubev_107.voting_service.storage.impl;
 
 import by.it_academy.jd2.golubev_107.voting_service.storage.IVoteStorage;
 import by.it_academy.jd2.golubev_107.voting_service.storage.connection.IConnectionManager;
-import by.it_academy.jd2.golubev_107.voting_service.storage.connection.impl.ConnectionManagerImpl;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Comment;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Genre;
 import by.it_academy.jd2.golubev_107.voting_service.storage.entity.Vote;
@@ -20,7 +19,6 @@ import java.util.Map;
 
 public class VoteStorageImpl implements IVoteStorage {
 
-    private static final IVoteStorage instance = new VoteStorageImpl();
     private static final String INSERT_VOTE_QUERY = "INSERT INTO app.vote (artist_id, created_at) VALUES(?, ?) RETURNING id;";
     private static final String INSERT_CROSS_VOTE_GENRE_QUERY = "INSERT INTO app.cross_vote_genre (vote_id, genre_id) VALUES(?, ?);";
     private static final String SELECT_COUNT_VOTES_BY_ARTIST = """
@@ -33,14 +31,11 @@ public class VoteStorageImpl implements IVoteStorage {
             FROM app.genre g\s
             LEFT JOIN app.cross_vote_genre cvg ON g.id = cvg.genre_id\s
             GROUP BY g.id;""";
-    private final IConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
+    private final IConnectionManager connectionManager;
     private final List<Comment> comments = new ArrayList<>();
 
-    private VoteStorageImpl() {
-    }
-
-    public static IVoteStorage getInstance() {
-        return instance;
+    public VoteStorageImpl(IConnectionManager connectionManager) {
+        this.connectionManager = connectionManager;
     }
 
     @Override
